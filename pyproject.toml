@@ -1,0 +1,73 @@
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "contentfactory"
+version = "0.1.0"
+description = "AI-powered content production and automation system"
+requires-python = ">=3.12,<3.14"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.9",
+]
+
+image-local = [
+    "torch",
+    "torchvision",
+    "diffusers",
+    "transformers",
+    "accelerate",
+    "safetensors",
+]
+
+audio-local = [
+    "kokoro",
+]
+
+media = [
+    "Pillow",
+    "numpy",
+    "ffmpeg-python",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+    "backend*",
+    "integrations*",
+    "media_engine*",
+    "workflows*",
+]
+exclude = [
+    "tests*",
+    "apps*",
+    "storage*",
+    ".claude*",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = [
+    "backend",
+    "integrations",
+    "media_engine",
+    "workflows",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
